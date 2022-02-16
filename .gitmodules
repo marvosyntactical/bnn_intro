@@ -1,0 +1,6 @@
+[submodule "TyXe"]
+	path = TyXe
+	url = https://github.com/TyXe-BDL/TyXe/
+[submodule "pytorchviz"]
+	path = pytorchviz
+	url = https://github.com/marvosyntactical/pytorchviz
