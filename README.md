@@ -17,6 +17,12 @@ source bayes/bin/activate
 
 # ----- Install dependencies -----
 bash install.sh # adds ~ 2.5 GB to empty venv
+
+# ----- Install IPyKernel if using virtual environment -----
+python3 -m ipykernel install --user --name bayes
+
+# ----- Run jupyter lab -----
+jupyter lab .
 ```
 
 NOTE: The install itself requires ~2.5 GB if torch/numpy/pyro/etc arent present; and we will require another 500 MB for MNIST + CIFAR10.
