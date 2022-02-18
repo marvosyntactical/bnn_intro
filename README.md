@@ -18,7 +18,7 @@ cd bnn/
 
 # ----- Optional: Create Virtual Environment -----
 # Option 1: Conda. Use this if your Python is not version 3.8.
-conda create --name bayes --python=3.8.10
+conda create --name bayes python=3.8.10
 conda activate bayes
 
 # Option 2: Virtualenv. The folder "bayes" handily is in the gitignore
@@ -28,29 +28,37 @@ source bayes/bin/activate
 # ----- Install dependencies -----
 bash install.sh # adds ~ 2.5 GB to empty environment
 
-# ----- Install IPyKernel if using virtual environment -----
+# ----- Install IPyKernel if using conda or virtualenv -----
 python3 -m ipykernel install --user --name bayes
 
-# ----- Run jupyter -----
-jupyter notebook --no-browser --port XXXX # choose your own port > 1024
+# Switch to gpu node, choosing a node with free gpu:
+srun --mem 16000 --gres=gpu:1 --time=0-01:30:00 -w ceg-brook01 -p dev --pty bash      
 
-# in another shell on remote, run:
-jupyter notebook list # copy the displayed token
+# ----- Run jupyter -----
+jupyter notebook --no-browser --port 1234 
+
+# copy the first URL displayed by the jupyter command, it should have this format:
+http://localhost:1234/?token=YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+
+# ----- Do Port Forwarding Multiple Times -----
+
+# on ceg-octane, run
+ssh USERNAME@ceg-brook01 -NL 1234:localhost:1234
 
 # locally (on cegate if connected through it), run:
-ssh USERNAME@octane -NL 1234:localhost:XXXX
+ssh USERNAME@octane -NL 1234:localhost:1234
 
-# if you ran the above command on cegate, run:
+# if you ran the above command on cegate, run on your machine:
 ssh USERNAME@cegate.ziti.uni-heidelberg.de -NL 1234:localhost:1234
 
-# open jupyter in browser on your machine
-http://localhost:1234/
+# ----- In Your Browser -----
 
-# enter the copied token if prompted
+# 1. open jupyter in browser on your machine
+# (paste the copied link)
 
-# open bnn_workshop.ipynb
+# 2. open bnn_workshop.ipynb
 
-# select kernel > change kernel > bayes (or your environment name)
+# 3. select kernel > change kernel > bayes (or your environment name)
 ```
 
 NOTE: The install itself requires ~2.5 GB if torch/numpy/pyro/etc arent present; and we will require another 500 MB for MNIST + CIFAR10.

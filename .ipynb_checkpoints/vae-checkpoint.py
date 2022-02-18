@@ -7,9 +7,6 @@ import torch.nn as nn
 import pyro
 import pyro.distributions as dist
 
-# compiled from the pyro vae example code:
-# https://github.com/pyro-ppl/pyro/blob/dev/examples/vae/
-
 
 __all__ = [
     "Decoder",
@@ -17,7 +14,6 @@ __all__ = [
     "train",
     "evaluate",
     "VAE"
-    "plot_vae_samples",
 ]
 
 
@@ -145,4 +141,3 @@ class VAE(nn.Module):
         # decode the image (note we don't sample in image space)
         loc_img = self.decoder(z)
         return loc_img
-

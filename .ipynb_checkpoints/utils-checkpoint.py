@@ -8,7 +8,6 @@ import torch.nn as nn
 import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
-import torch.utils.data as data
 
 import pyro
 import pyro.distributions as dist
@@ -71,7 +70,7 @@ def make_loaders_bnns(
         test_loader = MockData(BTest*test_batches, ((torch.randn(BTest,C,H,W), torch.randint(num_classes, (BTest,))) for _ in range(test_batches)))
         ood_loader = MockData(BTest*test_batches, ((torch.randn(BTest,C,H,W) * 2 + 3, torch.randint(num_classes, (BTest,))) for _ in range(test_batches)))
         return train_loader, test_loader, ood_loader
-
+    
     train_img_transforms = [torchvision.transforms.RandomCrop(size=32, padding=4, padding_mode='reflect'),
                             torchvision.transforms.RandomHorizontalFlip()]
     test_img_transforms = []
@@ -93,12 +92,3 @@ def make_loaders_bnns(
     ood_loader = data.DataLoader(ood_data, test_batch_size)
 
     return train_loader, test_loader, ood_loader
-
-def make_net(dataset, architecture, pretrained=False):
-    net = getattr(torchvision.models, architecture)(pretrained=pretrained)
-    if dataset.startswith("cifar"):
-        net.conv1 = nn.Conv2d(3, net.conv1.out_channels, kernel_size=3, stride=1, padding=1, bias=False)
-        net.maxpool = nn.Identity()
-        num_classes = 10 if dataset.endswith("10") else 100
-        net.fc = nn.Linear(net.fc.in_features, num_classes)
-    return net
