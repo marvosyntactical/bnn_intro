@@ -13,7 +13,7 @@ The introductory notebook is a compilation of the practical [Pyro Tutorials](htt
 ssh octane
 
 # clone recursively:
-git clone -recursive https://cegit.ziti.uni-heidelberg.de/hacking-neural-networks/bnn/
+git clone --recursive https://cegit.ziti.uni-heidelberg.de/hacking-neural-networks/bnn.git
 cd bnn/
 
 # ----- Optional: Create Virtual Environment -----
@@ -31,19 +31,21 @@ bash install.sh # adds ~ 2.5 GB to empty environment
 # ----- Install IPyKernel if using conda or virtualenv -----
 python3 -m ipykernel install --user --name bayes
 
-# Switch to gpu node, choosing a node with free gpu:
-srun --mem 16000 --gres=gpu:1 --time=0-01:30:00 -w ceg-brook01 -p dev --pty bash      
+# Connect to a free gpu node
+srun --mem 16000 --gres=gpu:1 --time=0-02:30:00 -w NODENAME -p dev --pty bash      
 
 # ----- Run jupyter -----
 jupyter notebook --no-browser --port 1234 
 
-# copy the first URL displayed by the jupyter command, it should have this format:
-http://localhost:1234/?token=YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+# copy one of the URLs displayed by the jupyter command, it should have this format:
+http://localhost:1234/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 # ----- Do Port Forwarding Multiple Times -----
 
 # on ceg-octane, run
-ssh USERNAME@ceg-brook01 -NL 1234:localhost:1234
+ssh USERNAME@NODENAME -NL 1234:localhost:1234
+
+# no output, blinking cursor is desired result
 
 # locally (on cegate if connected through it), run:
 ssh USERNAME@octane -NL 1234:localhost:1234
