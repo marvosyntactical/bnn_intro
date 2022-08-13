@@ -14424,7 +14424,8 @@ which we are then going to progressively hide/abstract away with</p>
 <li><a href="#Inference-in-Pyro:-Pyro-Example:-VAE.guide(">Example: VAE.guide()</a>)</li>
 <li><a href="#Bayesian-Neural-Networks">Bayesian Neural Networks</a></li>
 <li><a href="#Bayesian-ResNet-in-Pyro">BNNs in Pyro</a></li>
-<li><a href="#TyXe">BNNs in TyXe</a></li>
+<li><a href="#Bayesian-ResNet-in-TyXe">BNNs in TyXe</a></li>
+<li><a href="#That&#39;s-it!">References</a></li>
 </ul>
 </li>
 </ul>
@@ -14438,7 +14439,7 @@ If you installed the dependencies (including ipykernel) in a virtual/conda envir
 <code>Select Kernel &gt; Change Kernel &gt; environmentname</code></p>
 
 </div>
-</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
@@ -14453,7 +14454,7 @@ If you installed the dependencies (including ipykernel) in a virtual/conda envir
 </div>
 </div>
 
-</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
@@ -14489,7 +14490,7 @@ If you installed the dependencies (including ipykernel) in a virtual/conda envir
 
 </div>
 
-</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div></div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
@@ -14582,7 +14583,7 @@ If you installed the dependencies (including ipykernel) in a virtual/conda envir
 we formalize these in terms of mathematical operations on <strong>probability distributions</strong>.</p>
 
 </div>
-</div></section></section><section><section>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Probabilistic-Models">Probabilistic Models<a class="anchor-link" href="#Probabilistic-Models">&#182;</a></h3><p>We express everything we know about the <strong>variables</strong> in a problem and the <strong>relationships</strong> between them in the form of a <strong><em>probabilistic model</em></strong>:</p>
@@ -14596,7 +14597,7 @@ $$p_{\theta}({\bf x}, {\bf z}) = p_{\theta}({\bf x}|{\bf z}) p_{\theta}({\bf z})
 <p>Probabilistic models are often depicted in a standard graphical notation (<a href="https://en.wikipedia.org/wiki/Bayesian_network">Bayesian Networks</a>):</p>
 
 </div>
-</div></section></section><section><section>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><img src="img/model.png" width="600" align="middle"></p>
@@ -14613,7 +14614,7 @@ $$p_{\theta}({\bf x}) = \int \!  p_{\theta}({\bf x} , {\bf z})\; d{\bf z} $$<p>a
 $$p_{\theta}(x' | {\bf x}) = \int \!  p_{\theta}(x' | {\bf z}) p_{\theta}({\bf z} | {\bf x})\; d{\bf z} $$<p>It is often desirable to <strong><em>learn</em></strong> the parameters $\theta$ of our models from observed data $x$, which we can do by <strong>maximizing</strong> the evidence:</p>
 $$\theta_{\rm{max}} = \rm{argmax}_\theta p_{\theta}({\bf x}) = \rm{argmax}_\theta \int \!  p_{\theta}({\bf x} , {\bf z}) \; d{\bf z} $$
 </div>
-</div></section></section><section><section>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Some-Bayesian-Inference-Algorithms">Some Bayesian Inference Algorithms<a class="anchor-link" href="#Some-Bayesian-Inference-Algorithms">&#182;</a></h3><p>One naive way to set the parameters $\theta$ is <strong>Maximum Likelihood Estimation</strong> (MLE):</p>
@@ -14713,10 +14714,13 @@ $$</li>
 <li>a step in 𝜙−space that moves the guide closer to the posterior.</li>
 <li>a step in 𝜃−space that moves the posterior closer to the guide.</li>
 </ol>
-<ul>
-<li>The <strong>guide and model play chase</strong>. </li>
-<li>Despite the moving target, this optimization problem can be solved well enough for many different problems.</li>
-</ul>
+
+</div>
+</div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>$\Rightarrow$ The <strong>guide and model play chase</strong>.<br>
+Despite the moving target, this optimization problem can be solved well enough for many different problems.</p>
 <p>So at high level variational inference is easy:</p>
 <ol>
 <li>Define a guide.</li>
@@ -14953,16 +14957,18 @@ whose behavior can be changed by <code>Pyro</code>'s internals depending on the 
 </div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Now that we've defined the full model and guide inside our <code>torch.nn.Module</code> <code>VAE</code> we can move on to inference:</p>
+<p>Now that we've defined the full model and guide inside our <code>torch.nn.Module</code> "<code>VAE</code>" we can setup inference:</p>
 
 </div>
-</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">make_loaders_mnist</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># preliminaries </span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">make_loaders_mnist</span>
 <span class="kn">from</span> <span class="nn">vae</span> <span class="kn">import</span> <span class="n">train</span>
 <span class="kn">from</span> <span class="nn">vae</span> <span class="kn">import</span> <span class="n">evaluate</span>
 
@@ -14982,8 +14988,26 @@ whose behavior can be changed by <code>Pyro</code>'s internals depending on the 
 
 <span class="c1"># clear pyro&#39;s global parameter store</span>
 <span class="n">pyro</span><span class="o">.</span><span class="n">clear_param_store</span><span class="p">()</span>
+</pre></div>
 
-<span class="c1"># setup the VAE</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>To set up the <code>SVI</code>, all we need to do is:</p>
+
+</div>
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># setup the VAE</span>
 <span class="n">vae</span> <span class="o">=</span> <span class="n">VAE</span><span class="p">(</span>
     <span class="n">z_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
     <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>    
@@ -14991,12 +15015,24 @@ whose behavior can be changed by <code>Pyro</code>'s internals depending on the 
 <span class="p">)</span>
 
 <span class="c1"># setup the optimizer</span>
-<span class="n">adam_args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">LEARNING_RATE</span><span class="p">}</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">adam_args</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">({</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">LEARNING_RATE</span><span class="p">})</span> <span class="c1"># pyro.optim wraps torch.optim</span>
 
 <span class="c1"># setup the stochastic variational inference algorithm</span>
 <span class="n">svi</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">SVI</span><span class="p">(</span><span class="n">vae</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">vae</span><span class="o">.</span><span class="n">guide</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">Trace_ELBO</span><span class="p">())</span>
+</pre></div>
 
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># training</span>
 <span class="n">train_elbo</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">test_elbo</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -15017,144 +15053,6 @@ whose behavior can be changed by <code>Pyro</code>'s internals depending on the 
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
-Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to ./data/MNIST/raw/train-images-idx3-ubyte.gz
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>  0%|          | 0/9912422 [00:00&lt;?, ?it/s]</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Extracting ./data/MNIST/raw/train-images-idx3-ubyte.gz to ./data/MNIST/raw
-
-Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
-Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to ./data/MNIST/raw/train-labels-idx1-ubyte.gz
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>  0%|          | 0/28881 [00:00&lt;?, ?it/s]</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Extracting ./data/MNIST/raw/train-labels-idx1-ubyte.gz to ./data/MNIST/raw
-
-Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
-Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw/t10k-images-idx3-ubyte.gz
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>  0%|          | 0/1648877 [00:00&lt;?, ?it/s]</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Extracting ./data/MNIST/raw/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw
-
-Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
-Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>  0%|          | 0/4542 [00:00&lt;?, ?it/s]</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Extracting ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw
-
-[epoch 000] average training loss: 178.1054
-[epoch 000] average test loss: 144.2892
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div></section><section>
@@ -15256,12 +15154,12 @@ $$p_{\theta}(x' | {\bf x}) = \int \! p_{\theta}(x' | {\bf z}) p_{\theta}({\bf z}
 <li>i.e. in all above formulae we <strong>reinterpret</strong> the variables:</li>
 </ul>
 <ol>
-<li>${\bf z}$ now means (already learned) neural network model <strong>weights</strong></li>
-<li>$\theta$ now means <strong>learnable distribution parameters</strong> (usually: (multivariate) scale and location of <strong>gaussians</strong>)</li>
+<li>${\bf z}$ now designates the (already learned) neural network model <strong>weights</strong></li>
+<li>$\theta$ are now the <strong>learnable distribution parameters</strong> (usually: (multivariate) scale and location of <strong>gaussians</strong>)</li>
 </ol>
 
 </div>
-</div></section></section><section><section>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The training workflow for <code>BNN</code>s is that</p>
@@ -15269,9 +15167,17 @@ $$p_{\theta}(x' | {\bf x}) = \int \! p_{\theta}(x' | {\bf z}) p_{\theta}({\bf z}
 <li>We take a given neural network, usually pretrained using <strong>MLE</strong>,   </li>
 <li>We replace all weights with <strong>gaussians priors</strong>,</li>
 <li>Then guide the network with a <strong>gaussian guide</strong> with means initialized to the pretrained weights, </li>
-<li>Learning the parameters of the gaussians.  </li>
+<li>We learn the parameters og the <strong>guide</strong> only. </li>
 </ol>
-<p>Usually we fix the means and only learn the variance.</p>
+<p>Usually we fix the means to the pretrained weights and only learn the variances.</p>
+
+</div>
+</div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>For a minibatch of data, the ELBO now takes on the form:</p>
+$$ELBO = -logq_\phi(z)+logp_\theta(z)+\frac{1}{n}\sum_{i=1}^nlogp_\theta(x_i|z)$$<p>where $z\sim q_\phi(z)$ is drawn ahead of time.</p>
+<p>according to <a href="https://arxiv.org/abs/1505.05424"><em>Weight Uncertainty in Neural Networks (Blundell et al., 2015)</em></a>. (This is a Monte Carlo Estimate of the ELBO with 1 Sample)</p>
 
 </div>
 </div></section></section><section><section>
@@ -15281,40 +15187,79 @@ $$p_{\theta}(x' | {\bf x}) = \int \! p_{\theta}(x' | {\bf z}) p_{\theta}({\bf z}
 <li>Theoretically, it is straightforward to adapt a given deep neural maximum likelihood estimator to be a BNN. </li>
 <li>Let's see how we would do this in <code>Pyro</code>, practically.</li>
 <li>Code adapted from Appendix B of the <a href="https://arxiv.org/abs/2110.00276">TyXe Paper</a></li>
-<li>Pay attention to the three Bayesian ingredients we have to pick:</li>
-<li><strong>Likelihood</strong>, <strong>Prior</strong> and <strong>Guide</strong></li>
 </ul>
 
 </div>
-</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># dataset helper functions</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># preliminaries</span>
+
+<span class="c1"># dataset helper functions</span>
 <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">make_loaders_bnns</span><span class="p">,</span> <span class="n">make_net</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="s2">&quot;cifar10&quot;</span>
+<span class="n">model_name</span> <span class="o">=</span> <span class="s2">&quot;resnet18&quot;</span>
+<span class="n">pretrained</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># usually, start with a net pretrained using MLE!</span>
 
-<span class="c1"># take an existing torch.nn.Module:</span>
-<span class="n">resnet</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">make_net</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s2">&quot;resnet18&quot;</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># may be pretrained</span>
-<span class="c1"># make_net only reshapes final layer of torchvision.models.resnet18()</span>
+<span class="c1"># load cifar data</span>
+<span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">make_loaders_bnns</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="p">,</span> <span class="s2">&quot;./data&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span> 
+<span class="p">)</span>
+
+<span class="c1"># take an existing net:</span>
+<span class="n">resnet</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">make_net</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="n">pretrained</span><span class="p">)</span>
+<span class="c1"># make_net only reshapes final layer of torchvision.models.model_name()</span>
 
 <span class="c1"># initialize gaussian means using these:</span>
-<span class="n">weights</span> <span class="o">=</span> <span class="n">resnet</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
+<span class="n">pretrained_weights</span> <span class="o">=</span> <span class="n">resnet</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
 
-<span class="c1"># convert it to pyro module inplace</span>
+<span class="c1"># convert model to pyro module inplace</span>
 <span class="n">pyro</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">to_pyro_module_</span><span class="p">(</span><span class="n">resnet</span><span class="p">)</span>
+</pre></div>
 
-<span class="c1"># define the prior p(weights) to be gaussian</span>
-<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">resnet</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now we have to make choices for the following three Bayesian components:</p>
+<ol>
+<li><strong>Prior</strong> - Our Prior Belief $p_\theta({\bf z})$ about the weights.</li>
+<li><strong>Likelihood</strong> - The Likelihood of our Training Data $p_\theta({\bf x}|{\bf z})$. Together with the Prior this constitutes the <strong>Model</strong>.</li>
+<li><strong>Guide</strong> - The Variational Distribution $q_\phi({\bf z}|{\bf x})$.</li>
+</ol>
+<p>For each of these three components, we</p>
+<ul>
+<li>Pick the family of distributions the particular object may belong to.</li>
+<li>Initialize the distribution's parameters.</li>
+</ul>
+
+</div>
+</div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="1.-Prior">1. <strong>Prior</strong><a class="anchor-link" href="#1.-Prior">&#182;</a></h4><p>We pick standard normals as our prior belief $p_\theta(weights)$ about the weights.</p>
+
+</div>
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">resnet</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>
     <span class="c1"># replace weights and biases of </span>
     <span class="c1"># fully connected and convolutional modules</span>
     <span class="c1"># (do not be bayesian about batchnorms)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">)):</span>
         <span class="c1"># PyroSample Modules sample on their forward pass,</span>
-        <span class="c1"># and their parameters theta get trained by SVI</span>
         <span class="n">m</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">PyroSample</span><span class="p">(</span>
             <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span>
                 <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="p">),</span>
@@ -15328,29 +15273,83 @@ $$p_{\theta}(x' | {\bf x}) = \int \! p_{\theta}(x' | {\bf z}) p_{\theta}({\bf z}
                     <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
                 <span class="p">)</span><span class="o">.</span><span class="n">to_event</span><span class="p">()</span>
             <span class="p">)</span>
+</pre></div>
 
-<span class="c1"># define the model p(data | weights) * p(weights)</span>
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">logits</span> <span class="o">=</span> <span class="n">resnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># forward samples from priors</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div></div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="2.-Likelihood">2. <strong>Likelihood</strong><a class="anchor-link" href="#2.-Likelihood">&#182;</a></h4><p>We define the likelihood $p_\theta(data|weights)$ by defining our model $p_\theta(data|weights) * p(weights)$, i.e.<br>
+p(data | weights) <em> p(weights)<br>
+= likelihood      </em> prior<br>
+= joint distribution</p>
+
+</div>
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">resnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># forward samples from prior</span>
     
-    <span class="c1"># define the likelihood p(data | weights)</span>
+    <span class="c1"># define the likelihood </span>
+    <span class="c1"># p(data | weights)</span>
     <span class="k">with</span> <span class="n">pyro</span><span class="o">.</span><span class="n">plate</span><span class="p">(</span><span class="s2">&quot;data_plate&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-        <span class="c1"># context for IID</span>
+        <span class="c1"># context for IID data points in batch</span>
         
         <span class="c1"># log likelihood reconstruction loss</span>
         <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">),</span> <span class="n">obs</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
         
-        <span class="c1"># return for prediction only:</span>
+        <span class="c1"># return for prediction/testing only:</span>
         <span class="k">return</span> <span class="n">logits</span>
+</pre></div>
 
-<span class="c1"># define the guide q(weights) to be gaussian</span>
-<span class="n">guide</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">autoguide</span><span class="o">.</span><span class="n">AutoNormal</span><span class="p">(</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div></div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="3.-Guide">3. <strong>Guide</strong><a class="anchor-link" href="#3.-Guide">&#182;</a></h4><p>We decide that the guide $q_\phi(weights)$ should be gaussian.<br>
+In this case, the use of <code>AutoNormal</code> leads to diagonal covariance, i.e. independent weights.<br>
+This is called <strong>Mean-Field</strong> assumption and drastically reduces training time.</p>
+
+</div>
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">guide</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">autoguide</span><span class="o">.</span><span class="n">AutoNormal</span><span class="p">(</span>
     <span class="n">model</span><span class="p">,</span>
     <span class="n">init_scale</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="c1"># initialize the variances uniformly (vars=phi above)</span>
-    <span class="n">init_loc_fn</span><span class="o">=</span><span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">autoguide</span><span class="o">.</span><span class="n">init_to_value</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span> <span class="c1"># init gauss means to pretrained weights</span>
+    <span class="n">init_loc_fn</span><span class="o">=</span><span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">autoguide</span><span class="o">.</span><span class="n">init_to_value</span><span class="p">(</span>
+        <span class="n">values</span><span class="o">=</span><span class="n">pretrained_weights</span>
+    <span class="p">)</span> <span class="c1"># init gauss means to pretrained weights</span>
 <span class="p">)</span>
+</pre></div>
 
-<span class="c1"># an optimizer can be taken from pyro.optim (wrapper around torch.optim API)</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div></div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># an optimizer can be taken from pyro.optim (wrapper around torch.optim API)</span>
 <span class="n">optim</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">({</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">})</span>
 
 <span class="c1"># set up stochastic variational inference</span>
@@ -15360,11 +15359,20 @@ $$p_{\theta}(x' | {\bf x}) = \int \! p_{\theta}(x' | {\bf z}) p_{\theta}({\bf z}
     <span class="n">optim</span><span class="p">,</span>
     <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">Trace_ELBO</span><span class="p">()</span> <span class="c1"># objective function</span>
 <span class="p">)</span>
+</pre></div>
 
-<span class="c1"># load cifar data</span>
-<span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">make_loaders_bnns</span><span class="p">(</span>
-    <span class="n">dataset</span><span class="p">,</span> <span class="s2">&quot;./data&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span> 
-<span class="p">)</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># training</span>
 
 <span class="c1"># fit the BNN</span>
 <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">1</span>
@@ -15374,16 +15382,29 @@ $$p_{\theta}(x' | {\bf x}) = \int \! p_{\theta}(x' | {\bf z}) p_{\theta}({\bf z}
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)):</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">first_n_batches_train</span><span class="p">:</span>
             <span class="k">break</span>
-        <span class="c1"># 1. pass x and y to our model(x,y) and guide (x,y)</span>
-        <span class="c1"># 2. compute the elbo</span>
-        <span class="c1"># 3. let the model update its parameters theta (gaussian variances)</span>
-        <span class="c1"># 4. let the guide update its parameters phi (also gaussian variances)</span>
+            
+        <span class="c1"># 1. forward guide(x,y), memorize sampled weight values</span>
+        <span class="c1"># 2. forward model(x,y), using memorized values</span>
+        <span class="c1"># 3. compute the elbo</span>
+        <span class="c1"># 4. elbo.backward() # updates guide</span>
         <span class="n">svi</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
 
-<span class="c1"># prediction</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># prediction</span>
 <span class="k">def</span> <span class="nf">make_prediction</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">guide</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">poutine</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">guide</span><span class="p">)</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">logits</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">poutine</span><span class="o">.</span><span class="n">replay</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">poutine</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">guide</span><span class="p">)</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># memorize sampled weight values of guide</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">poutine</span><span class="o">.</span><span class="n">replay</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># use sampled weight values of guide</span>
     <span class="n">predictions</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">acc</span> <span class="o">=</span> <span class="p">((</span><span class="n">predictions</span> <span class="o">==</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
@@ -15400,90 +15421,6 @@ $$p_{\theta}(x' | {\bf x}) = \int \! p_{\theta}(x' | {\bf z}) p_{\theta}({\bf z}
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Downloading https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz to ./data/cifar-10-python.tar.gz
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>  0%|          | 0/170498071 [00:00&lt;?, ?it/s]</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Extracting ./data/cifar-10-python.tar.gz to ./data
-Files already downloaded and verified
-Downloading http://ufldl.stanford.edu/housenumbers/test_32x32.mat to ./data/test_32x32.mat
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>  0%|          | 0/64275384 [00:00&lt;?, ?it/s]</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Batch acc = 0.28125
-Batch acc = 0.125
-Batch acc = 0.1875
-Batch acc = 0.3125
-Batch acc = 0.1875
-Batch acc = 0.21875
-Batch acc = 0.15625
-Batch acc = 0.34375
-Batch acc = 0.28125
-Batch acc = 0.28125
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -15492,9 +15429,11 @@ Batch acc = 0.28125
 <li>we had to touch the torch.nn.Module and use our knowledge of it</li>
 <li>we had to have quite a bit of knowledge of pyro's internals</li>
 <li>we do not have access to variance reduction techniques typically used in BNN training</li>
-<li>testing is unnecessarily complicated. According to the <a href="https://arxiv.org/abs/2110.00276">TyXe Paper (Appendix B)</a>, this may be because<br>
-<em>„Pyro was primarily designed" for a „smaller-scale Bayesian Workflow" where one is interested in „modelling and making inferences on a given dataset rather than predicting on held-out test data“</em>.</li>
+<li>testing is unnecessarily complicated. According to the <a href="https://arxiv.org/abs/2110.00276">TyXe Paper (Appendix B)</a>, this may be because  </li>
 </ul>
+<p><em>„Pyro was primarily designed" for a „smaller-scale Bayesian Workflow"<br>
+where one is interested in „modelling and making inferences on a given dataset<br>
+rather than predicting on held-out test data“</em>.</p>
 <p>In the next section, we will see that the Pyro-based <code>BNN</code> library <a href="https://github.com/TyXe-BDL/TyXe/">TyXe</a> solves these problems:<br>
 TyXe users only have to have familiarity with pytorch, and minimal knowledge of the <code>BNN</code> workflow.</p>
 
@@ -15502,7 +15441,7 @@ TyXe users only have to have familiarity with pytorch, and minimal knowledge of 
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="TyXe">TyXe<a class="anchor-link" href="#TyXe">&#182;</a></h2><p><a href="https://github.com/TyXe-BDL/TyXe/">TyXe</a> (Ancient greek: goddess of chance) is built ontop of <code>Pyro</code> and was released in 2021 as<br>
+<h2 id="Bayesian-ResNet-in-TyXe">Bayesian ResNet in TyXe<a class="anchor-link" href="#Bayesian-ResNet-in-TyXe">&#182;</a></h2><p><a href="https://github.com/TyXe-BDL/TyXe/">TyXe</a> (Ancient greek: goddess of chance) is built ontop of <code>Pyro</code> and was released in 2021 as<br>
 a <code>BNN</code> library aimed at hiding away most of what we had to do manually for our bayesian resnet above.</p>
 
 </div>
@@ -15531,7 +15470,7 @@ a <code>BNN</code> library aimed at hiding away most of what we had to do manual
 </div></div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>With Tyxe, the above <code>BNN</code> could have been as short as:</p>
+<p>In Tyxe, the following short code is equivalent to our previous Bayesian ResNet:</p>
 
 </div>
 </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -15566,9 +15505,10 @@ a <code>BNN</code> library aimed at hiding away most of what we had to do manual
 </div></div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>As you can see, users technically don't need to be familiar with <code>Pyro</code> to use <code>TyXe</code>.<br>
+<h4 id="TyXe-Options">TyXe Options<a class="anchor-link" href="#TyXe-Options">&#182;</a></h4><p>As you can see, users technically don't need to be intricately familiar with <code>Pyro</code> to use <code>TyXe</code>.<br>
 With <code>TyXe</code> we've reached a level of abstraction appropriate for BNNs,<br>
-so let's explore the range of options <code>TyXe</code> offers for building them:</p>
+so let's look at some more typical training setups in <code>TyXe</code>.<br>
+First, let's get the standard Hyperparameters out of the way:</p>
 
 </div>
 </div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -15577,10 +15517,9 @@ so let's explore the range of options <code>TyXe</code> offers for building them
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ----- PARAMETERS OF OUR BAYESIAN RESNET TRAINING USING TYXE ------</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Standard Hyperparameters first ...</span>
 
 <span class="c1"># MODEL</span>
-<span class="n">inference</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean-field&quot;</span>
 <span class="n">architecture</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;resnet18&quot;</span>
 <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cifar10&quot;</span>
 <span class="n">pretrained</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -15597,28 +15536,10 @@ so let's explore the range of options <code>TyXe</code> offers for building them
 <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42</span>
 <span class="n">output_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="c1"># BAYESIAN NEURAL NETWORK OPTIONS</span>
-<span class="n">local_reparameterization</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># important: variance reduction for gradients!</span>
-<span class="n">flipout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># important: variance reduction for gradients!</span>
-<span class="n">max_guide_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="c1"># to prevent underfitting: clamp learned variance</span>
-<span class="n">rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># low rank setting for inference == &quot;last-layer-low-rank&quot;</span>
-<span class="n">scale_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># train variance only, leaving means at pretrained values</span>
-
 <span class="c1"># OPTIMIZER</span>
 <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.001</span> <span class="c1"># initial learning rate</span>
 <span class="n">milestones</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># epochs at which to do scheduler step</span>
 <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="c1"># scheduler step factor</span>
-
-<span class="c1"># ----- check args: inference, architecture, dataset ------</span>
-<span class="n">inference_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;mle&quot;</span><span class="p">,</span> <span class="c1"># maximum likelihood estimation: weights = argmax p(data|weights)</span>
-    <span class="s2">&quot;map&quot;</span><span class="p">,</span> <span class="c1"># maximum a posteriori inference: weights = argmax p(data|weights)*p(weights)</span>
-    <span class="s2">&quot;mean-field&quot;</span><span class="p">,</span> <span class="c1"># svi with autonormal guide and diagonal covariance</span>
-    <span class="s2">&quot;last-layer-mean-field&quot;</span><span class="p">,</span> <span class="c1"># svi for last layer only, autonormal guide and diagonal covariance</span>
-    <span class="s2">&quot;last-layer-full&quot;</span><span class="p">,</span> <span class="c1"># svi for last layer only, autonormal guide and FULL covariance</span>
-    <span class="s2">&quot;last-layer-low-rank&quot;</span> <span class="c1"># svi for last layer only, low rank</span>
-<span class="p">]</span>
-<span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="n">inference_options</span><span class="p">,</span> <span class="n">inference</span>
 
 <span class="n">resnets</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;resnet&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">n</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;wide_resnet&quot;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">n</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()]</span>
 <span class="k">assert</span> <span class="n">architecture</span> <span class="ow">in</span> <span class="n">resnets</span><span class="p">,</span> <span class="n">architecture</span>
@@ -15632,20 +15553,52 @@ so let's explore the range of options <code>TyXe</code> offers for building them
 </div>
 </div>
 
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Some BNN Hyperparameters:</span>
+
+<span class="n">inference</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean-field&quot;</span>
+<span class="n">local_reparameterization</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># important: variance reduction for gradients!</span>
+<span class="n">flipout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># important: variance reduction for gradients!</span>
+<span class="n">max_guide_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="c1"># to prevent underfitting: clamp learned variance</span>
+<span class="n">rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># low rank setting for inference == &quot;last-layer-low-rank&quot;</span>
+<span class="n">scale_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># train variance only, leaving means at pretrained values</span>
+
+<span class="c1"># More comments on these inference options in the section &#39;guide&#39; below</span>
+<span class="n">inference_options</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;mle&quot;</span><span class="p">,</span> <span class="c1"># maximum likelihood estimation: weights = argmax p(data|weights)</span>
+    <span class="s2">&quot;map&quot;</span><span class="p">,</span> <span class="c1"># maximum a posteriori inference: weights = argmax p(data|weights)*p(weights)</span>
+    <span class="s2">&quot;mean-field&quot;</span><span class="p">,</span> <span class="c1"># svi with autonormal guide (diagonal covariance)</span>
+    <span class="s2">&quot;last-layer-mean-field&quot;</span><span class="p">,</span> <span class="c1"># svi for last layer only, autonormal guide and diagonal covariance</span>
+    <span class="s2">&quot;last-layer-full&quot;</span><span class="p">,</span> <span class="c1"># svi for last layer only, autonormal guide and FULL covariance</span>
+    <span class="s2">&quot;last-layer-low-rank&quot;</span> <span class="c1"># svi for last layer only, low rank</span>
+<span class="p">]</span>
+<span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="n">inference_options</span><span class="p">,</span> <span class="n">inference</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Initialize-our-Dataset-and-Model">Initialize our Dataset and Model<a class="anchor-link" href="#Initialize-our-Dataset-and-Model">&#182;</a></h3><ul>
 <li>arbitrary pytorch datasets and models work</li>
-<li>it is straightforward to go integrate TyXe into any existing Pytorch workflow</li>
+<li>it is straightforward to integrate <code>TyXe</code> into any existing Pytorch workflow</li>
 <li>since we just start out with any <code>torch.nn.Module</code> and never touch its internals!</li>
 </ul>
 
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ----- set up pyro &amp; torch -----</span>
@@ -15665,74 +15618,16 @@ so let's explore the range of options <code>TyXe</code> offers for building them
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Files already downloaded and verified
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>/home/mkoss/anaconda3/envs/bayes/lib/python3.8/site-packages/torch-1.10.2-py3.8-linux-x86_64.egg/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 2 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
-  warnings.warn(_create_warning_msg(
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Files already downloaded and verified
-Using downloaded and verified file: ./data/test_32x32.mat
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div></div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Set-up-ResNet-to-be-Bayesian-using-TyXe">Set up ResNet to be Bayesian using TyXe<a class="anchor-link" href="#Set-up-ResNet-to-be-Bayesian-using-TyXe">&#182;</a></h3><p>Once again, to set up a Bayesian Model in TyXe we need to make a choice for each of the three ingredients:</p>
-<ol>
-<li><strong>Likelihood</strong> - The Likelihood of our Training Data $p_\theta({\bf x}|{\bf z})$.</li>
-<li><strong>Guide</strong> - The Variational Distribution $q_\phi({\bf z}|{\bf x})$.</li>
-<li><strong>Prior</strong> - Our Prior Belief $p_\theta({\bf z})$ about the weights.</li>
-</ol>
-<p>Our choice for each of these three components does two things:</p>
-<ul>
-<li>Determine the family of distributions the particular object may belong to.</li>
-<li>Initialize the distribution's parameters.</li>
-</ul>
-<p>Let's go through the meaning and options for each of the three components, one by one.</p>
+<h3 id="Set-up-ResNet-to-be-Bayesian-using-TyXe">Set up ResNet to be Bayesian using TyXe<a class="anchor-link" href="#Set-up-ResNet-to-be-Bayesian-using-TyXe">&#182;</a></h3><p>Once again, to set up a BNN we need to make choices for the <strong>Prior, Likelihood</strong> and <strong>Guide</strong>.</p>
 
 </div>
 </div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="1.-Setting-up-the-Likelihood"><strong>1. Setting up the Likelihood</strong><a class="anchor-link" href="#1.-Setting-up-the-Likelihood">&#182;</a></h4><p>The Likelihood of our Training Data $p_\theta({\bf x}|{\bf z})$.<br>
+<h4 id="1.-Likelihood"><strong>1. Likelihood</strong><a class="anchor-link" href="#1.-Likelihood">&#182;</a></h4><p>The Likelihood of our Training Data $p_\theta({\bf x}|{\bf z})$.<br>
 The support of the distribution must be equal in size to the number of training samples.</p>
 
 </div>
@@ -15742,7 +15637,13 @@ The support of the distribution must be equal in size to the number of training 
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Bernoulli, Categorical, HeteroskedasticGaussian, HomoskedasticGaussian</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># tyxe.likelihoods includes:</span>
+
+<span class="c1"># Bernoulli</span>
+<span class="c1"># Categorical</span>
+<span class="c1"># HeteroskedasticGaussian</span>
+<span class="c1"># HomoskedasticGaussian</span>
+
 <span class="n">likelihood</span> <span class="o">=</span> <span class="n">tyxe</span><span class="o">.</span><span class="n">likelihoods</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="o">.</span><span class="n">sampler</span><span class="p">))</span>
 
 <span class="c1"># uncomment for documentation:</span>
@@ -15757,42 +15658,72 @@ The support of the distribution must be equal in size to the number of training 
 </div></div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="2.-Setting-up-our-Guide"><strong>2. Setting up our Guide</strong><a class="anchor-link" href="#2.-Setting-up-our-Guide">&#182;</a></h4><ul>
-<li>The choice of the variational distribution is where most of our flexibility lies.  </li>
-<li>We will use <code>Autoguide</code>s, either from <code>Pyro</code> or <code>TyXe</code>.  </li>
-<li>The TyXe <code>BNN</code>s expect an only partially initialized <code>guide</code> object.  </li>
-<li>Let's go through some of the options, which are all</li>
-<li>practical approximations to <strong>SVI</strong> on the full model with full gaussian covariances, which is too expensive:  </li>
+<h4 id="2.-Guide"><strong>2. Guide</strong><a class="anchor-link" href="#2.-Guide">&#182;</a></h4><ul>
+<li>The choice of the <code>guide</code> is where most of our flexibility lies. </li>
+<li>TyXe's <code>BNN</code>s expect a partially initialized <code>Autoguide</code> function, either from <code>Pyro</code> or <code>TyXe</code>.  </li>
+<li>Let's go through some typical options, which are all</li>
+<li>practical approximations to <strong>SVI</strong> on the full model with full gaussian covariances</li>
+<li>which is <em>far</em> too expensive.</li>
 </ul>
-<ol>
+
+</div>
+</div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h5 id="Instead-of-SVI-on-the-full-model-with-full-gaussian-covariances,-we-will-do-one-of:">Instead of <strong>SVI</strong> on the full model with full gaussian covariances, we will do one of:<a class="anchor-link" href="#Instead-of-SVI-on-the-full-model-with-full-gaussian-covariances,-we-will-do-one-of:">&#182;</a></h5><ol>
 <li>Maximum Likelihood: Just let the guide be <code>None</code>.</li>
 <li>Maximum a posteriori Inference: Because of <a href="https://github.com/pyro-ppl/pyro/issues/570">Math</a>, we can just use <strong>Delta Distributions</strong> as guides for this.</li>
-<li>Mean Field: Does <strong>SVI</strong> on full model with Independent Gaussians, i.e. <strong>Diagonal Covariances</strong> ($\Rightarrow Training\in\mathcal{O}(\#params)$ instead of $\mathcal{O}(\#params^6)$, <a href="https://oatml.cs.ox.ac.uk/blog/2020/11/29/liberty_or_depth.html">Oxford Blog Post</a>) </li>
+<li>Mean Field: Does <strong>SVI</strong> on full model with Independent Gaussians, i.e. <strong>Diagonal Covariances</strong><br>
+($\Rightarrow Training\in\mathcal{O}(\#params)$ instead of $\mathcal{O}(\#params^6)$ - <a href="https://oatml.cs.ox.ac.uk/blog/2020/11/29/liberty_or_depth.html">Oxford Blog Post</a>. According to the post \&amp; paper, the Diagonal Covariances are good enough especially for deeper models.) </li>
 <li>Last Layer: Often only the last layer of a Big Conv Net is tuned with <strong>SVI</strong></li>
 </ol>
 <p>See the Paper for a comparison of these methods both on CIFAR's test set and Out Of Domain data.</p>
 
 </div>
-</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s2">&quot;mle&quot;</span><span class="p">:</span>
     <span class="c1"># do maximum likelihood estimation</span>
     <span class="n">test_samples</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">guide</span> <span class="o">=</span> <span class="kc">None</span>
-    
-<span class="k">elif</span> <span class="n">inference</span> <span class="o">==</span> <span class="s2">&quot;map&quot;</span><span class="p">:</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s2">&quot;map&quot;</span><span class="p">:</span>
     <span class="c1"># maximum a posteriori inference </span>
     <span class="n">test_samples</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">guide</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
-        <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">autoguide</span><span class="o">.</span><span class="n">AutoDelta</span><span class="p">,</span>
+        <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">autoguide</span><span class="o">.</span><span class="n">AutoDelta</span><span class="p">,</span> <span class="c1"># deterministic weights</span>
         <span class="n">init_loc_fn</span><span class="o">=</span><span class="n">tyxe</span><span class="o">.</span><span class="n">guides</span><span class="o">.</span><span class="n">PretrainedInitializer</span><span class="o">.</span><span class="n">from_net</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
     <span class="p">)</span>
-    
-<span class="k">elif</span> <span class="n">inference</span> <span class="o">==</span> <span class="s2">&quot;mean-field&quot;</span><span class="p">:</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s2">&quot;mean-field&quot;</span><span class="p">:</span>
     <span class="c1"># SVI with diagonal covariances</span>
     <span class="n">guide</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
         <span class="n">tyxe</span><span class="o">.</span><span class="n">guides</span><span class="o">.</span><span class="n">AutoNormal</span><span class="p">,</span>
@@ -15801,8 +15732,20 @@ The support of the distribution must be equal in size to the number of training 
         <span class="n">max_guide_scale</span><span class="o">=</span><span class="n">max_guide_scale</span><span class="p">,</span> <span class="c1"># prevent underfitting</span>
         <span class="n">train_loc</span><span class="o">=</span><span class="ow">not</span> <span class="n">scale_only</span> <span class="c1"># train gaussian means?</span>
     <span class="p">)</span> 
+</pre></div>
 
-<span class="k">elif</span> <span class="n">inference</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;last-layer&quot;</span><span class="p">):</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">inference</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;last-layer&quot;</span><span class="p">):</span>
     <span class="c1"># usually only done for pretrained network:</span>
     <span class="c1"># if not pretrained:</span>
     <span class="c1">#    raise ValueError(&quot;Asked to do last-layer inference, but no pre-trained weights were provided.&quot;)</span>
@@ -15836,20 +15779,6 @@ The support of the distribution must be equal in size to the number of training 
             <span class="n">init_loc_fn</span><span class="o">=</span><span class="n">tyxe</span><span class="o">.</span><span class="n">guides</span><span class="o">.</span><span class="n">PretrainedInitializer</span><span class="o">.</span><span class="n">from_net</span><span class="p">(</span><span class="n">net</span><span class="p">),</span>
             <span class="n">init_scale</span><span class="o">=</span><span class="mf">1e-4</span>
         <span class="p">)</span>
-        
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid option for inference: &#39;</span><span class="si">{</span><span class="n">inference</span><span class="si">}</span><span class="s2">&#39;&#39;&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid option for inference: &#39;</span><span class="si">{</span><span class="n">inference</span><span class="si">}</span><span class="s2">&#39;&#39;&quot;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pyro&#39;s Automatic Guide Families:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">([</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">autoguide</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Auto&quot;</span><span class="p">)])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TyXe&#39;s Automatic Guide Families:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">([</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">tyxe</span><span class="o">.</span><span class="n">guides</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Auto&quot;</span><span class="p">)])</span>
-
-<span class="c1"># uncomment for documentation:</span>
-<span class="c1"># pyro.infer.autoguide.AutoDelta?</span>
 </pre></div>
 
      </div>
@@ -15881,14 +15810,31 @@ TyXe&#39;s Automatic Guide Families:
 
 </div>
 
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pyro&#39;s Automatic Guide Families:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">([</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">autoguide</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Auto&quot;</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TyXe&#39;s Automatic Guide Families:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">([</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">tyxe</span><span class="o">.</span><span class="n">guides</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Auto&quot;</span><span class="p">)])</span>
+
+<span class="c1"># uncomment for documentation:</span>
+<span class="c1"># pyro.infer.autoguide.AutoDelta?</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>You might have noticed<br>
-We actually secretly used the <strong>Mean Field</strong> assumption in the <code>Pyro</code> implementation, too,<br>
-Where we used <code>pyro.infer.autoguide.AutoNormal</code>.<br>
-instead of the full <code>pyro.infer.autoguide.AutoMultivariateNormal</code></p>
-<h4 id="2.-Setting-up-our-Prior"><strong>2. Setting up our Prior</strong><a class="anchor-link" href="#2.-Setting-up-our-Prior">&#182;</a></h4>
+<h4 id="3.-Prior"><strong>3. Prior</strong><a class="anchor-link" href="#3.-Prior">&#182;</a></h4>
 </div>
 </div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -15984,7 +15930,8 @@ instead of the full <code>pyro.infer.autoguide.AutoMultivariateNormal</code></p>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h4 id="Variance-Reduction">Variance Reduction<a class="anchor-link" href="#Variance-Reduction">&#182;</a></h4><ul>
-<li>One important thing in <strong>SVI</strong> we haven't touched on is gradient variance reduction.</li>
+<li>One <strong>very</strong> important thing for successful <strong>SVI</strong> via gradient descent we haven't touched upon is <strong>gradient variance reduction</strong>. </li>
+<li>The most classical example: <strong>reparameterization trick</strong> (introduced in VAE paper, described <a href="https://arxiv.org/abs/1506.02557">here</a>) </li>
 <li>Though <code>Pyro</code> provides many variance reduction <a href="https://docs.pyro.ai/en/stable/infer.reparam.html">techniques</a> and <a href="http://pyro.ai/examples/svi_part_iii.html#Variance-or-Why-I-Wish-I-Was-Doing-MLE-Deep-Learning">tutorials</a>,</li>
 <li><code>TyXe</code> provides some context managers specific to its <code>BNN</code>s:</li>
 </ul>
@@ -16001,7 +15948,13 @@ instead of the full <code>pyro.infer.autoguide.AutoMultivariateNormal</code></p>
     <span class="k">if</span> <span class="n">flipout</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t use both local reparameterization and flipout, pick one.&quot;</span><span class="p">)</span>
     <span class="n">train_context</span> <span class="o">=</span> <span class="n">tyxe</span><span class="o">.</span><span class="n">poutine</span><span class="o">.</span><span class="n">local_reparameterization</span>
+    <span class="c1"># turns each</span>
+    <span class="c1"># torch.distributions.Normal(loc, scale).sample() (gradient w.r.t. loc, scale is stochastic)</span>
+    <span class="c1"># into</span>
+    <span class="c1"># loc + scale * torch.distributions.Normal(0, 1).sample() (gradient w.r.t. loc, scale is deterministic) </span>
 <span class="k">elif</span> <span class="n">flipout</span><span class="p">:</span>
+    <span class="c1"># usually: use one sampled weight for entire minibatch</span>
+    <span class="c1"># flipout: efficiently sample pseudo-independent weights along the minibatch dimension</span>
     <span class="n">train_context</span> <span class="o">=</span> <span class="n">tyxe</span><span class="o">.</span><span class="n">poutine</span><span class="o">.</span><span class="n">flipout</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">train_context</span> <span class="o">=</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">nullcontext</span>
@@ -16015,7 +15968,7 @@ instead of the full <code>pyro.infer.autoguide.AutoMultivariateNormal</code></p>
 </div></div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Optimizer-and-evaluation">Optimizer and evaluation<a class="anchor-link" href="#Optimizer-and-evaluation">&#182;</a></h4>
+<h4 id="Optimizer">Optimizer<a class="anchor-link" href="#Optimizer">&#182;</a></h4>
 </div>
 </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -16032,21 +15985,6 @@ instead of the full <code>pyro.infer.autoguide.AutoMultivariateNormal</code></p>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All typical pytorch optimizers &amp; schedulers are supported by pyro.optim:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">opt</span> <span class="k">for</span> <span class="n">opt</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyro</span><span class="o">.</span><span class="n">optim</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">opt</span> <span class="ow">and</span> <span class="n">opt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">opt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()])</span>
-    
-<span class="c1"># tyXe-specific: evaluation and logging done after every epoch:</span>
-<span class="k">def</span> <span class="nf">callback</span><span class="p">(</span>
-        <span class="n">b</span><span class="p">:</span> <span class="n">tyxe</span><span class="o">.</span><span class="n">VariationalBNN</span><span class="p">,</span> <span class="c1"># bnn</span>
-        <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="c1"># epoch number</span>
-        <span class="n">avg_elbo</span><span class="p">:</span> <span class="nb">float</span> <span class="c1"># mean elbo this epoch</span>
-    <span class="p">):</span>
-    <span class="n">avg_err</span><span class="p">,</span> <span class="n">avg_ll</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span>
-    
-    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">test_loader</span><span class="p">):</span>
-        <span class="n">err</span><span class="p">,</span> <span class="n">ll</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">num_predictions</span><span class="o">=</span><span class="n">test_samples</span><span class="p">)</span>
-        <span class="n">avg_err</span> <span class="o">+=</span> <span class="n">err</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_loader</span><span class="o">.</span><span class="n">sampler</span><span class="p">)</span>
-        <span class="n">avg_ll</span> <span class="o">+=</span> <span class="n">ll</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_loader</span><span class="o">.</span><span class="n">sampler</span><span class="p">)</span>
-        
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ELBO=</span><span class="si">{</span><span class="n">avg_elbo</span><span class="si">}</span><span class="s2">; test error=</span><span class="si">{</span><span class="mi">100</span> <span class="o">*</span> <span class="n">avg_err</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%; LL=</span><span class="si">{</span><span class="n">avg_ll</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16077,6 +16015,38 @@ instead of the full <code>pyro.infer.autoguide.AutoMultivariateNormal</code></p>
 </div>
 
 </div></div></section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Evaluation-logic">Evaluation logic<a class="anchor-link" href="#Evaluation-logic">&#182;</a></h4>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># tyXe-specific: evaluation and logging done after every epoch:</span>
+<span class="k">def</span> <span class="nf">callback</span><span class="p">(</span>
+        <span class="n">b</span><span class="p">:</span> <span class="n">tyxe</span><span class="o">.</span><span class="n">VariationalBNN</span><span class="p">,</span> <span class="c1"># bnn</span>
+        <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="c1"># epoch number</span>
+        <span class="n">avg_elbo</span><span class="p">:</span> <span class="nb">float</span> <span class="c1"># mean elbo this epoch</span>
+    <span class="p">):</span>
+    <span class="n">avg_err</span><span class="p">,</span> <span class="n">avg_ll</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span>
+    
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">test_loader</span><span class="p">):</span><span class="n">t</span>
+        <span class="n">err</span><span class="p">,</span> <span class="n">ll</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">num_predictions</span><span class="o">=</span><span class="n">test_samples</span><span class="p">)</span>
+        <span class="n">avg_err</span> <span class="o">+=</span> <span class="n">err</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_loader</span><span class="o">.</span><span class="n">sampler</span><span class="p">)</span>
+        <span class="n">avg_ll</span> <span class="o">+=</span> <span class="n">ll</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_loader</span><span class="o">.</span><span class="n">sampler</span><span class="p">)</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ELBO=</span><span class="si">{</span><span class="n">avg_elbo</span><span class="si">}</span><span class="s2">; test error=</span><span class="si">{</span><span class="mi">100</span> <span class="o">*</span> <span class="n">avg_err</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%; LL=</span><span class="si">{</span><span class="n">avg_ll</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h4 id="Training">Training<a class="anchor-link" href="#Training">&#182;</a></h4>
@@ -16110,20 +16080,6 @@ instead of the full <code>pyro.infer.autoguide.AutoMultivariateNormal</code></p>
 </ul>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div></section></section>
 </div>
 </div>
