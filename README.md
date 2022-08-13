@@ -1,19 +1,18 @@
+
 # Bayesian Neural Network Workshop
 
 Brief intro to BNNs using terminology of [Pyro](http://pyro.ai/examples/intro_long.html), showcasing [TyXe](https://github.com/TyXe-BDL/TyXe/).
 The introductory notebook is a compilation of the practical [Pyro Tutorials](http://pyro.ai/examples/).
 
-
-## Installation on Octane
+## How to run the notebook on a remote cluster
+And access it through your browser, using port forwarding:
 
 ```bash
-# make sure you're a member of the hacking-nn group (you should be if youre reading this ...)
-
-# go to remote (going via cegate is okay)
-ssh octane
+# go to remote
+ssh yourserver
 
 # clone recursively:
-git clone --recursive https://cegit.ziti.uni-heidelberg.de/hacking-neural-networks/bnn.git
+git clone --recursive https://github.com/marvosyntactical/bnn
 cd bnn/
 
 # ----- Optional: Create Virtual Environment -----
@@ -31,27 +30,19 @@ bash install.sh # adds ~ 2.5 GB to empty environment
 # ----- Install IPyKernel if using conda or virtualenv -----
 python3 -m ipykernel install --user --name bayes
 
-# Connect to a free gpu node
-srun --mem 16000 --gres=gpu:1 --time=0-02:30:00 -w NODENAME -p dev --pty bash      
+# Start a shell session on a gpu node on your Cluster, e.g. using SLURM:
+srun --mem 16000 --gres=gpu:1 --time=0-02:30:00 -w NODENAME -p partition --pty bash      
 
-# ----- Run jupyter -----
+# ----- Run jupyter there -----
 jupyter notebook --no-browser --port 1234 
 
 # copy one of the URLs displayed by the jupyter command, it should have this format:
 http://localhost:1234/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-# ----- Do Port Forwarding Multiple Times -----
+# ----- Do Port Forwarding -----
 
-# on ceg-octane, run
+# on yourserver, run
 ssh USERNAME@NODENAME -NL 1234:localhost:1234
-
-# no output, blinking cursor is desired result
-
-# locally (on cegate if connected through it), run:
-ssh USERNAME@octane -NL 1234:localhost:1234
-
-# if you ran the above command on cegate, run on your machine:
-ssh USERNAME@cegate.ziti.uni-heidelberg.de -NL 1234:localhost:1234
 
 # ----- In Your Browser -----
 
@@ -65,3 +56,5 @@ ssh USERNAME@cegate.ziti.uni-heidelberg.de -NL 1234:localhost:1234
 
 NOTE: The install itself requires ~2.5 GB if torch/numpy/pyro/etc arent present; and we will require another 500 MB for MNIST + CIFAR10.
 
+
+```
