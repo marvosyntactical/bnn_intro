@@ -1,8 +1,0 @@
-digraph {
-	subgraph cluster_data {
-		label=data labeljust=r labelloc=b
-		latent [label=latent fillcolor=white shape=ellipse style=filled]
-		obs [label=obs fillcolor=grey shape=ellipse style=filled]
-	}
-	latent -> obs
-}
